@@ -1,28 +1,37 @@
 name: ${CLIENT_NAME}-site
 
 services:
-  # app:
-  #   container_name: ${CLIENT_NAME}-frontend
-  #   build:
-  #     context: ../app
-  #     dockerfile: Dockerfile.development
-  #   ports:
-  #     - "3120:3000"
-  #   working_dir: /app
-  #   volumes:
-  #     - ../app:/app/
-  #   entrypoint: "sh /app/entrypoint.sh"
-  #   env_file:
-  #     - .env.development
-  #   depends_on:
-  #     cms:
-  #       condition: service_healthy
+  app:
+    container_name: ${CLIENT_NAME}-frontend
+    networks:
+      - strapi
+    build:
+      context: ../app
+      dockerfile: Dockerfile.development
+    ports:
+      - "3120:3000"
+    working_dir: /app
+    volumes:
+      - ../app:/app/
+      - node_modules:/app/node_modules
+      - build:/app/.next
+    env_file:
+      - .development.env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+    depends_on:
+      cms:
+        condition: service_healthy
   cms:
     container_name: ${CLIENT_NAME}-cms
     networks:
       - strapi
     env_file:
       - .development.env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
     build:
       context: ../cms
       dockerfile: Dockerfile.development
@@ -31,12 +40,16 @@ services:
     working_dir: /cms
     volumes:
       - ../cms:/cms/
-    entrypoint: "sh /cms/entrypoint.sh"
+    # entrypoint: "sh /cms/entrypoint.sh"
     depends_on:
       - db
     healthcheck:
       test: curl -f http://localhost:1337 || exit 1
+      # test: [ "CMD", "curl", "-f", "http://localhost:1337", "||", "exit", "1" ]
+      # test: [ "CMD", "curl", "-f", "http://localhost:1337" ]
       retries: 10
+      interval: 15s
+      timeout: 10s
   db:
     container_name: ${CLIENT_NAME}-db
     networks:
@@ -48,6 +61,8 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      HOST: 0.0.0.0
+      PORT: 5432
     env_file:
       - .development.env
     volumes:
@@ -57,6 +72,8 @@ services:
 
 volumes:
   db_data:
+  node_modules:
+  build:
 
 
 networks:
