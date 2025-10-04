@@ -1,0 +1,8 @@
+services:
+  run-build:
+    build:
+      context: ../
+      dockerfile: Dockerfile.production
+    image: jp-app-prod
+    ports:
+      - "3755:3000"

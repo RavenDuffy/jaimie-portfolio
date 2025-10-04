@@ -1,0 +1,65 @@
+name: ${CLIENT_NAME}-site
+
+services:
+  # app:
+  #   container_name: ${CLIENT_NAME}-frontend
+  #   build:
+  #     context: ../app
+  #     dockerfile: Dockerfile.development
+  #   ports:
+  #     - "3120:3000"
+  #   working_dir: /app
+  #   volumes:
+  #     - ../app:/app/
+  #   entrypoint: "sh /app/entrypoint.sh"
+  #   env_file:
+  #     - .env.development
+  #   depends_on:
+  #     cms:
+  #       condition: service_healthy
+  cms:
+    container_name: ${CLIENT_NAME}-cms
+    networks:
+      - strapi
+    env_file:
+      - .development.env
+    build:
+      context: ../cms
+      dockerfile: Dockerfile.development
+    ports:
+      - "3121:1337"
+    working_dir: /cms
+    volumes:
+      - ../cms:/cms/
+    entrypoint: "sh /cms/entrypoint.sh"
+    depends_on:
+      - db
+    healthcheck:
+      test: curl -f http://localhost:1337 || exit 1
+      retries: 10
+  db:
+    container_name: ${CLIENT_NAME}-db
+    networks:
+      - strapi
+    image: postgres:18-alpine
+    ports:
+      - "3122:5432"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    env_file:
+      - .development.env
+    volumes:
+      # as of 18-alpine this is the new mount dir
+      - db_data:/var/lib/postgresql/
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
+
+networks:
+  strapi:
+    name: strapi
+    driver: bridge
