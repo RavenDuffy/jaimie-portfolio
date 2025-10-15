@@ -19,9 +19,21 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@types": ["./types.ts"],
+      "@/*": ["./app/*"],
+      "@atoms/*": ["./app/components/atoms/*"],
+      "@molecules/*": ["./app/components/molecules/*"],
+      "@organisms/*": ["./app/components/organisms/*"],
+      "@components": ["./app/components/index.ts"],
+      "@helpers/*": ["./app/helpers/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "postcss.config.mjs"
+  ],
   "exclude": ["node_modules"]
 }

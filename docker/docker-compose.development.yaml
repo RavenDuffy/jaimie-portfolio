@@ -11,10 +11,9 @@ services:
     ports:
       - "3120:3000"
     working_dir: /app
+    command: sh -cx "rsync -ar /node_cache/app/node_modules/. /app/node_modules/ && npm run dev"
     volumes:
-      - ../app:/app/
-      - node_modules:/app/node_modules
-      - build:/app/.next
+      - ../app:/app
     env_file:
       - .development.env
     environment:
@@ -40,15 +39,12 @@ services:
     working_dir: /cms
     volumes:
       - ../cms:/cms/
-    # entrypoint: "sh /cms/entrypoint.sh"
     depends_on:
       - db
     healthcheck:
       test: curl -f http://localhost:1337 || exit 1
-      # test: [ "CMD", "curl", "-f", "http://localhost:1337", "||", "exit", "1" ]
-      # test: [ "CMD", "curl", "-f", "http://localhost:1337" ]
       retries: 10
-      interval: 15s
+      interval: 5s
       timeout: 10s
   db:
     container_name: ${CLIENT_NAME}-db
@@ -72,8 +68,6 @@ services:
 
 volumes:
   db_data:
-  node_modules:
-  build:
 
 
 networks:
