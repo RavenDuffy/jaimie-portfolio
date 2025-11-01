@@ -1,4 +1,4 @@
-import type { Image } from "@/types";
+import type { Image } from "@types";
 import { default as NextImage } from "next/image";
 
 const BaseImage = ({
@@ -16,8 +16,8 @@ const BaseImage = ({
       <NextImage
         src={`${process.env.STRAPI_URL}${image.url}`}
         alt={image.alternativeText ?? "unknown"}
-        sizes="100vw"
-        style={{ width, height }}
+        sizes="100dvw"
+        style={{ width, height, objectFit: "contain" }}
         width="0"
         height="0"
       />

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style xmlns="">
+    #menu-vert {
+      transform-origin: center;
+      transform: rotate(90deg);
+      transition: transform 0.4s;
+    }
+    .active #menu-vert {
+      transform: rotate(0deg);
+      transition: transform 0.4s;
+    }
+  </style>
+  <line y1="17.5" x2="35" y2="17.5" stroke="black" stroke-width="3"/>
+  <line x1="17.5" y1="-1.78873e-08" x2="17.5" y2="35" stroke="black" stroke-width="3" id="menu-vert" />
+</svg>

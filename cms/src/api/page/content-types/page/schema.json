@@ -19,6 +19,13 @@
     "title": {
       "type": "string",
       "required": true
+    },
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.image-and-text"
+      ],
+      "required": true
     }
   }
 }

@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -11,6 +21,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "host.docker.internal",
+        port: "1337",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "cms",
         port: "1337",
         pathname: "/**",
       },

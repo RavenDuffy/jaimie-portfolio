@@ -1,4 +1,4 @@
-import type { Image } from "@/types";
+import type { Image } from "@types";
 import BaseImage from "@atoms/BaseImage";
 import Wrapper from "@atoms/Wrapper";
 
@@ -14,9 +14,15 @@ const ImageAndText = ({
   height?: string;
 }) => {
   return (
-    <Wrapper>
-      {image && <BaseImage image={image} width={width} height={height} />}
-      {text && <p>{text}</p>}
+    <Wrapper grid className="auto-cols-auto grid-flow-col gap-4 items-center">
+      {image && (
+        <BaseImage
+          image={image}
+          width={width ?? undefined}
+          height={height ?? undefined}
+        />
+      )}
+      <div className="col-span-2">{text && <p>{text}</p>}</div>
     </Wrapper>
   );
 };

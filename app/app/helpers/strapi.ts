@@ -1,26 +1,30 @@
-import { Page } from "@/types";
+import { Page } from "@types";
 import { stringify } from "qs";
+import dns from "node:dns";
+
+dns.setDefaultResultOrder("ipv4first");
 
 const apiUrl = `${process.env.STRAPI_URL}/api`;
 
 const defaultHeaders = {
-  Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
+  Authorization: `Bearer ${process.env.TOKEN}`,
 };
 
-const request = async (path: string, options = {}) => {
+const request = async (path: string, options: { [key: string]: any } = {}) => {
   const fetchOptions = {
     next: { tags: ["strapi"] },
-    headers: {},
+    headers: {
+      ...defaultHeaders,
+      ...(options.headers ?? {}),
+    },
     ...options,
   };
 
-  fetchOptions.headers = fetchOptions.hasOwnProperty("headers")
-    ? { ...defaultHeaders, ...fetchOptions.headers }
-    : { ...defaultHeaders };
+  const response = await fetch(`${apiUrl}/${path}`, fetchOptions)
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
 
-  const response = await fetch(`${apiUrl}/${path}`, fetchOptions);
-
-  return await response.json();
+  return await response;
 };
 
 export const get = async (path: string, params: object) => {

@@ -1,11 +1,25 @@
+import type { ReactNode, CSSProperties } from "react";
+
 export interface BasicComponent {
   __component: string;
+  data: {
+    [key: string]: any;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    documentId: string;
+    id: number;
+  };
+  meta: Object;
 }
 
 export type PageParams = {
-  params: {
-    slug: string[] | undefined;
-  };
+  slug: string[] | undefined;
+  id: number;
+};
+export type PageMetadata = {
+  params: Promise<PageParams>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export interface Page {
@@ -48,3 +62,26 @@ export type Image = {
     thumbnail: ImageFormat;
   };
 };
+
+interface baseLink {
+  className?: string;
+  style?: CSSProperties;
+  suppressHydrationWarning?: boolean;
+}
+interface internalLink extends baseLink {
+  href: string;
+  children?: ReactNode;
+  text?: never;
+  relative?: never;
+  external?: never;
+  internal?: never;
+}
+interface cmsLink extends baseLink {
+  text: string;
+  relative: boolean;
+  external?: string;
+  internal?: { slug: string };
+  href?: never;
+  children?: never;
+}
+export type Link = internalLink | cmsLink;

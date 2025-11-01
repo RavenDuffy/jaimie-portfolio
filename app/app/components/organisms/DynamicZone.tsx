@@ -1,7 +1,6 @@
-import type { BasicComponent } from "@/types";
-import ImageAndText from "@molecules/ImageAndText";
-
+import type { BasicComponent } from "@types";
 import type { JSX } from "react";
+import { Nav, ImageAndText } from "..";
 
 const componentList: { [key: string]: JSX.ElementType } = {
   "blocks.image-and-text": ImageAndText,

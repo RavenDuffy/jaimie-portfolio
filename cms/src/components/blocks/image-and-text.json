@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_blocks_image_and_texts",
+  "info": {
+    "displayName": "Image and Text"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "direction": {
+      "type": "enumeration",
+      "required": true,
+      "default": "left",
+      "enum": [
+        "left",
+        "right"
+      ]
+    }
+  },
+  "config": {}
+}

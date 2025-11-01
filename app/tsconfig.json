@@ -25,7 +25,10 @@
       "@molecules/*": ["./app/components/molecules/*"],
       "@organisms/*": ["./app/components/organisms/*"],
       "@components": ["./app/components/index.ts"],
-      "@helpers/*": ["./app/helpers/*"]
+      "@helpers/*": ["./app/helpers/*"],
+      "@assets/*": ["./app/assets/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@hooks": ["./app/hooks/index.ts"]
     }
   },
   "include": [

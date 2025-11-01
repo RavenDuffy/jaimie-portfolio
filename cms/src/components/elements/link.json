@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_elements_links",
+  "info": {
+    "displayName": "Link"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "relative": {
+      "type": "boolean",
+      "default": false
+    },
+    "external": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "relative"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "internal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "relative"
+            },
+            true
+          ]
+        }
+      }
+    }
+  },
+  "config": {}
+}

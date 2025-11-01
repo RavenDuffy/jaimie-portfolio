@@ -1,6 +1,6 @@
 import { DynamicZone } from "@components";
 import { getByType, getAllByType } from "@helpers/strapi";
-import { PageParams } from "@types";
+import { PageMetadata, PageParams } from "@types";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -8,12 +8,12 @@ export async function generateStaticParams() {
 
   const settings = await getByType("site-setting", {
     populate: {
-      homePage: {
-        populate: "*",
+      home: {
+        populate: true,
       },
     },
   });
-  const homePageSlug = settings.data?.homePage?.slug;
+  const homePageSlug = settings.data?.home?.slug;
 
   return pages.map((page) => {
     const isIndex =
@@ -25,19 +25,20 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata(props: PageParams): Promise<Metadata> {
+export async function generateMetadata(props: PageMetadata): Promise<Metadata> {
   const params = await props.params;
+
   let slug = params?.slug?.[0];
 
   if (typeof params.slug === "undefined") {
     const settings = await getByType("site-setting", {
       populate: {
-        homePage: {
-          populate: "*",
+        home: {
+          populate: true,
         },
       },
     });
-    slug = settings.data?.homePage?.slug;
+    slug = settings.data?.home?.slug;
 
     if (typeof slug !== "string") {
       return {};
@@ -49,19 +50,20 @@ export async function generateMetadata(props: PageParams): Promise<Metadata> {
   };
 }
 
-export default async function Page(props: PageParams) {
+export default async function Page(props: PageMetadata) {
   const params = await props.params;
+
   let slug = params.slug?.[0];
 
   if (typeof slug === "undefined") {
     const settings = await getByType("site-setting", {
       populate: {
-        homePage: {
-          populate: "*",
+        home: {
+          populate: true,
         },
       },
     });
-    slug = settings.data?.homePage?.slug;
+    slug = settings.data?.home?.slug;
 
     if (typeof slug !== "string") {
       return;
@@ -76,7 +78,7 @@ export default async function Page(props: PageParams) {
     },
     populate: {
       body: {
-        populate: "*",
+        populate: "*", // * if polymorphic
       },
     },
   });
@@ -87,10 +89,5 @@ export default async function Page(props: PageParams) {
 
   const [page] = pages.data;
 
-  return (
-    <>
-      {page.title}
-      {page.body?.length > 0 && <DynamicZone components={page.body} />}
-    </>
-  );
+  return <>{page.body?.length > 0 && <DynamicZone components={page.body} />}</>;
 }
