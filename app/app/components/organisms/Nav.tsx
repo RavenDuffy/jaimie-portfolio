@@ -23,7 +23,7 @@ const Header = ({ title, links }: { title: string; links: LinkType[] }) => {
             href="/"
             className={`transition-opacity ${nearest <= sizes["3xl"] && active ? "opacity-0" : "opacity-100"}`}
             style={{
-              transitionDelay: `0.${Math.floor(links.length / 2) + 2}s`,
+              transitionDelay: `${links.length / 2 / 10}s`,
             }}
           >
             {title}
@@ -39,8 +39,8 @@ const Header = ({ title, links }: { title: string; links: LinkType[] }) => {
                 className={`text-2xl lg:text-3xl xl:text-4xl duration-[0.2s] transition-opacity ${active ? "opacity-100" : "opacity-0"}`}
                 style={{
                   transitionDelay: active
-                    ? `0.${index + 1}s`
-                    : `0.${links.length - index}s`,
+                    ? `${(index + 1) / 10}s`
+                    : `${(links.length - index) / 10}s`,
                 }}
               />
             ))}
