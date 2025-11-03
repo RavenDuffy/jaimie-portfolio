@@ -1,6 +1,6 @@
 import { DynamicZone } from "@components";
 import { getByType, getAllByType } from "@helpers/strapi";
-import { PageMetadata, PageParams } from "@types";
+import { PageMetadata } from "@types";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {

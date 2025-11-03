@@ -84,4 +84,4 @@ interface cmsLink extends baseLink {
   href?: never;
   children?: never;
 }
-export type Link = internalLink | cmsLink;
+export type LinkType = internalLink | cmsLink;

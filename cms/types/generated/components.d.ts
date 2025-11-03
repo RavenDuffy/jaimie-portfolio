@@ -63,6 +63,19 @@ export interface NavigationHeader extends Struct.ComponentSchema {
   };
 }
 
+export interface SettingsColors extends Struct.ComponentSchema {
+  collectionName: 'components_settings_colors';
+  info: {
+    displayName: 'Colors';
+  };
+  attributes: {
+    dark: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    light: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -71,6 +84,7 @@ declare module '@strapi/strapi' {
       'elements.link': ElementsLink;
       'navigation.footer': NavigationFooter;
       'navigation.header': NavigationHeader;
+      'settings.colors': SettingsColors;
     }
   }
 }

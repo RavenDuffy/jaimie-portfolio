@@ -28,7 +28,6 @@ export default async function CmsPageLayout({
     <>
       <Nav {...header} />
       {children}
-      <div className="delete h-dvh" />
     </>
   );
 }

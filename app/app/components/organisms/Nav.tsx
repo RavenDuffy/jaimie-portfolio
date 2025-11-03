@@ -18,9 +18,7 @@ const Header = ({ title, links }: { title: string; links: LinkType[] }) => {
   return (
     <>
       <nav className={`${prata.className} sticky top-0`}>
-        <div
-          className={`w-full h-[5rem] md:h-[6rem] lg:h-[8rem] max-h-28 text-header-sm md:text-header-md lg:text-header-lg text-[#9F0A44] text-center`}
-        >
+        <div className="w-full h-[5rem] md:h-[6rem] lg:h-[8rem] max-h-28 text-header-sm md:text-header-md lg:text-header-lg text-[#9F0A44] text-center">
           <Link
             href="/"
             className={`transition-opacity ${nearest <= sizes["3xl"] && active ? "opacity-0" : "opacity-100"}`}

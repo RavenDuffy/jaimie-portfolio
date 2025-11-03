@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import type { Link } from "@types";
+import type { LinkType } from "@types";
 
 const Link = ({
   text,
@@ -11,7 +11,7 @@ const Link = ({
   className,
   style,
   suppressHydrationWarning = false,
-}: Link) => {
+}: LinkType) => {
   const link = relative ? `/${internal?.slug}` : external;
 
   return (
