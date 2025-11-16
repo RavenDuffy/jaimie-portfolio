@@ -1,9 +1,10 @@
 import type { BasicComponent } from "@types";
 import type { JSX } from "react";
-import { Nav, ImageAndText } from "..";
+import { Nav, ImageAndText, Landing } from "..";
 
 const componentList: { [key: string]: JSX.ElementType } = {
   "blocks.image-and-text": ImageAndText,
+  "blocks.landing": Landing,
 };
 
 const DynamicZone = ({ components }: { components: BasicComponent[] }) => {

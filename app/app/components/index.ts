@@ -7,3 +7,4 @@ export { default as ImageAndText } from "@/components/molecules/ImageAndText";
 
 export { default as DynamicZone } from "@/components/organisms/DynamicZone";
 export { default as Nav } from "@/components/organisms/Nav";
+export { default as Landing } from "@/components/organisms/Landing";

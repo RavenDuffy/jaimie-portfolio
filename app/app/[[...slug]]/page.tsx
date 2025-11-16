@@ -1,4 +1,4 @@
-import { DynamicZone } from "@components";
+import { DynamicZone, Nav } from "@components";
 import { getByType, getAllByType } from "@helpers/strapi";
 import { PageMetadata } from "@types";
 import type { Metadata } from "next";
@@ -89,5 +89,32 @@ export default async function Page(props: PageMetadata) {
 
   const [page] = pages.data;
 
-  return <>{page.body?.length > 0 && <DynamicZone components={page.body} />}</>;
+  const headerData = await getByType("navigation", {
+    populate: {
+      header: {
+        populate: {
+          links: {
+            populate: {
+              internal: {
+                fields: ["slug"],
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  const header = headerData.data.header;
+
+  const landingFirst = page.body[0].__component === "blocks.landing";
+  const landingNavTitle = landingFirst && page.body[0].title === header.title;
+
+  return (
+    page.body?.length > 0 && (
+      <>
+        <Nav {...header} landingNavTitle={landingNavTitle} />
+        <DynamicZone components={page.body} />
+      </>
+    )
+  );
 }

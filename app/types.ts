@@ -85,3 +85,8 @@ interface cmsLink extends baseLink {
   children?: never;
 }
 export type LinkType = internalLink | cmsLink;
+
+export type PageContextType = {
+  children?: ReactNode;
+  firstElement?: BasicComponent;
+};

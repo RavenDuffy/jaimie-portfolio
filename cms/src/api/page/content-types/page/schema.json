@@ -23,7 +23,8 @@
     "body": {
       "type": "dynamiczone",
       "components": [
-        "blocks.image-and-text"
+        "blocks.image-and-text",
+        "blocks.landing"
       ],
       "required": true
     }

@@ -470,7 +470,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    body: Schema.Attribute.DynamicZone<['blocks.image-and-text']> &
+    body: Schema.Attribute.DynamicZone<
+      ['blocks.image-and-text', 'blocks.landing']
+    > &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
