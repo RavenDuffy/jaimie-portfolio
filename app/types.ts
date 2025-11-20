@@ -10,7 +10,7 @@ export interface BasicComponent {
     documentId: string;
     id: number;
   };
-  meta: Object;
+  meta: object;
 }
 
 export type PageParams = {
@@ -67,6 +67,7 @@ interface baseLink {
   className?: string;
   style?: CSSProperties;
   suppressHydrationWarning?: boolean;
+  scroll?: boolean;
 }
 interface internalLink extends baseLink {
   href: string;

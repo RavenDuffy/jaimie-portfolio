@@ -1,13 +1,19 @@
 import type { BasicComponent } from "@types";
 import type { JSX } from "react";
-import { Nav, ImageAndText, Landing } from "..";
+import { ImageAndText, Landing } from "..";
 
 const componentList: { [key: string]: JSX.ElementType } = {
   "blocks.image-and-text": ImageAndText,
   "blocks.landing": Landing,
 };
 
-const DynamicZone = ({ components }: { components: BasicComponent[] }) => {
+const DynamicZone = ({
+  components,
+  env,
+}: {
+  components: BasicComponent[];
+  env: object;
+}) => {
   return components.map(({ __component, ...data }, index: number) => {
     const Component = componentList[__component];
 
@@ -18,7 +24,13 @@ const DynamicZone = ({ components }: { components: BasicComponent[] }) => {
         </div>
       );
     } else {
-      return <Component key={`dynamic-zone-component-${index}`} {...data} />;
+      return (
+        <Component
+          key={`dynamic-zone-component-${index}`}
+          env={env}
+          {...data}
+        />
+      );
     }
   });
 };

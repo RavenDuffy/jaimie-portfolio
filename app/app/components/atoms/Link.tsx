@@ -11,6 +11,7 @@ const Link = ({
   className,
   style,
   suppressHydrationWarning = false,
+  scroll = false,
 }: LinkType) => {
   const link = relative ? `/${internal?.slug}` : external;
 
@@ -20,6 +21,7 @@ const Link = ({
       className={className ? `${className}` : undefined}
       style={style}
       suppressHydrationWarning={suppressHydrationWarning}
+      scroll={scroll}
     >
       {children ?? text}
     </NextLink>

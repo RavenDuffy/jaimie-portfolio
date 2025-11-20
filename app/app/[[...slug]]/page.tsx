@@ -113,7 +113,14 @@ export default async function Page(props: PageMetadata) {
     page.body?.length > 0 && (
       <>
         <Nav {...header} landingNavTitle={landingNavTitle} />
-        <DynamicZone components={page.body} />
+        <DynamicZone
+          components={page.body}
+          env={{
+            LOCAL: process.env.LOCAL,
+            HOST: process.env.HOST,
+            STRAPI_URL: process.env.STRAPI_URL,
+          }}
+        />
       </>
     )
   );
